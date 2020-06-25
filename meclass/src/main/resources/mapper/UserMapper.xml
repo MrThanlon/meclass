@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zy.meclass.dao.UserDao">
+
+
+    <insert id="create" parameterType="com.zy.meclass.entity.User" useGeneratedKeys="true" keyProperty="iduser">
+        insert into user(uname,pwd,flag) values(#{uname},#{pwd},#{flag});
+    </insert>
+    <select id="login" parameterType="com.zy.meclass.entity.User" resultType="com.zy.meclass.entity.User">
+        select * from user where uname = #{uname} and pwd = #{pwd};
+    </select>
+    <select id="getUserById" parameterType="integer" resultType="com.zy.meclass.entity.User">
+        select * from user where iduser = #{iduser};
+    </select>
+    <select id="getPassword" parameterType="string" resultType="java.lang.String">
+        select pwd from user where uname = #{uname};
+    </select>
+
+
+</mapper>
