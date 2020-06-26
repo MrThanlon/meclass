@@ -16,10 +16,26 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+        
+    - name: Set up Node.js
+      uses: actions/setup-node@v1.4.2
+      with:
+        node-version: 13.2
+    
+    - name: Build FE
+      run: |
+        git clone https://github.com/MrThanlon/meclass-fe.git
+        cd meclass-fe
+        npm run build
+        mkdir meclass/src/main/resources/public
+        cp -r dist/* meclass/src/main/resources/public/
+        
+        
     - name: Build with Maven
       run: |
         cd meclass
