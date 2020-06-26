@@ -27,7 +27,7 @@ jobs:
 
     - name: Deploy
       env:
-        deploy_secret: ${{ secrets.DEPLOY_SECRET }}
+        DEPLOY_SECRET: ${{ secrets.DEPLOY_SECRET }}
       run: |
         echo "$DEPLOY_SECRET" > ~/id_rsa
         chmod 0400 ~/id_rsa
