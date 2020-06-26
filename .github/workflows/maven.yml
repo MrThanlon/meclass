@@ -4,7 +4,8 @@
 name: CI
 
 on:
-  repository_dispatch: [ updated ]
+  repository_dispatch:
+    types: [ updated ]
   push:
     branches: [ master ]
 
