@@ -30,4 +30,5 @@ jobs:
         deploy_secret: ${{ secrets.DEPLOY_SECRET }}
       run: |
         echo "$DEPLOY_SECRET" > ~/id_rsa
+        chmod 0400 ~/id_rsa
         scp -o "StrictHostKeyChecking no" -i ~/id_rsa target/*.war root@47.103.204.9:/var/lib/tomcat9/webapps/
