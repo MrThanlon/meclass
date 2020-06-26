@@ -38,8 +38,11 @@ jobs:
         
         
     - name: Build with Maven
+      env:
+        DATABASE: ${{ secrets.DATABASE }}
       run: |
         cd meclass
+        echo $DATABASE > src/main/resources/application.yml
         mvn clean package
 
     - name: Deploy
