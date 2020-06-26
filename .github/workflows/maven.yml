@@ -26,6 +26,8 @@ jobs:
         mvn clean package
 
     - name: Deploy
+      with:
+        deploy_secret: ${{ secrets.DEPLOY_SECRET }}
       run: |
         echo ${{ secrets.DEPLOY_SECRET }} > ~/id_rsa
         scp -o "StrictHostKeyChecking no" -i ~/id_rsa target/*.war root@47.103.204.9:/var/lib/tomcat9/webapps/
