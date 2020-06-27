@@ -13,4 +13,10 @@ public class User {
     private String uname;
     private String pwd;
     private Integer flag;
+
+    public User(Integer iduser, String uname, Integer flag) {
+        this.iduser = iduser;
+        this.uname = uname;
+        this.flag = flag;
+    }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zy.meclass.dao.VideoDao">
+
+
+    <insert id="addVideo" parameterType="com.zy.meclass.entity.Video" useGeneratedKeys="true" keyProperty="videoId">
+        insert into video(videoTitle,path,playCount) values(#{videoTitle},#{path},#{playCount});
+    </insert>
+
+    <delete id="deleteVideo">
+        DELETE FROM video WHERE videoTitle = #{videoTitle};
+    </delete>
+
+    <select id="searchAllVideo" resultType="com.zy.meclass.entity.Video">
+        select * from video;
+    </select>
+
+    <select id="getVideoByTitle" parameterType="string" resultType="com.zy.meclass.entity.Video">
+        select * from video where videoTitle = #{videoTitle};
+    </select>
+
+</mapper>
