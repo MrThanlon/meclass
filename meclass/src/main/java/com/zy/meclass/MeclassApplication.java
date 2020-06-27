@@ -12,6 +12,7 @@ public class MeclassApplication extends SpringBootServletInitializer {
         return application.sources(MeclassApplication.class);
     }
 
+
     public static void main(String[] args) {
         SpringApplication.run(MeclassApplication.class, args);
     }
