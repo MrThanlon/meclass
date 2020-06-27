@@ -31,4 +31,5 @@ public class VideoServiceImpl implements VideoService {
     public   Video getVideoByTitle(@Param("videoTitle") String videoTitle){
         return videoDao.getVideoByTitle(videoTitle);
     }
+
 }

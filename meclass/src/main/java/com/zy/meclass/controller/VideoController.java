@@ -1,13 +1,10 @@
 package com.zy.meclass.controller;
 
 import com.zy.meclass.entity.CommonResult;
-import com.zy.meclass.entity.User;
 import com.zy.meclass.entity.Video;
 import com.zy.meclass.service.VideoService;
 import com.zy.meclass.util.NonStaticResourceHttpRequestHandler;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,9 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.util.List;
-import java.util.UUID;
 
 @RestController
 @Slf4j
@@ -30,20 +24,29 @@ public class VideoController {
     private NonStaticResourceHttpRequestHandler nonStaticResourceHttpRequestHandler;
 
 
+
+
     //上传视频
     @PostMapping(value = "/video/add")
-    public CommonResult uploadVideo(@RequestParam("file") MultipartFile file,@RequestParam("videoTitle")String videoTitle,Video video){
+    public CommonResult uploadVideo(@RequestParam("file") MultipartFile file,@RequestParam("videoTitle")String videoTitle){
         try {
             //获取文件后缀
             String fileExt = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1)
                     .toLowerCase();
+            System.out.println(fileExt);
             //视频存放路径
             String path = "/Users/zhangye/Documents/video";
+            //获取项目根路径并转到static/videos
+            //String path = ClassUtils.getDefaultClassLoader().getResource("").getPath()+"static/videos/";
+            //String path = " /Users/zhangye/IdeaProjects/meclass/src/main/resources/static/videos";
             //保存视频
             //Video fileSave = new Video(videoTitle,path,0);
-            File fileSave = new File(path,videoTitle);
+            //String videoName = file.substring(0, pngFilename.lastIndexOf(".")) + ".jpg";
+            File fileSave = new File(path,videoTitle+".mp4");
             //下载到本地
             file.transferTo(fileSave);
+
+            //fileSave.renameTo(new File(videoTitle+".mp4"));//改名
             Video newVideo = new Video(videoTitle,path,0);
             videoService.addVideo(newVideo);
             return new CommonResult(1,"上传视频成功 ");
@@ -58,26 +61,38 @@ public class VideoController {
 
     //查询所有视频
 
-    //根据id查询视频
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public CommonResult getVideoByName(HttpServletRequest request, HttpServletResponse response, @RequestBody String videoTitle)
+    //根据视频标题查询视频
+    @PostMapping(value = "/video/get")
+    public byte[] getVideoByName(@RequestParam("videoTitle") String videoTitle)
     {
         Video video = videoService.getVideoByTitle(videoTitle);
-
-        response.reset();
-        //获取从那个字节开始读取文件
-        String rangeString = request.getHeader("Range");
-
-        if(video != null)
-        {
-            return new CommonResult(1,"查询成功 ",video);
-        }else{
-            return new CommonResult(0,"查询失败 ");
-        }
+        String filePath = video.getPath();
+        String fileName = video.getVideoTitle();
+        byte[] buffer = null;
+        try {
+            File file = new File(filePath, fileName+".mp4");
+            FileInputStream fis = new FileInputStream(file);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] b = new byte[1024];
+            int n;
+            while ((n = fis.read(b)) != -1)
+            {
+                bos.write(b, 0, n);
+            }
+            fis.close();
+            bos.close();
+            buffer = bos.toByteArray();
+            } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            } catch (IOException e) {
+            e.printStackTrace();
+            }
+        return buffer;
     }
 
-    @RequestMapping(value = "/getVideo", method = RequestMethod.GET)
-    public void getVideo(HttpServletRequest request,HttpServletResponse response,@RequestParam("videoTitle") String videoTitle)
+    //未实现
+    @RequestMapping(value = "/getVideosss", method = RequestMethod.GET)
+    public void getVideosss(HttpServletRequest request,HttpServletResponse response,@RequestParam("videoTitle") String videoTitle)
     {
         //视频资源存储信息
         Video video = videoService.getVideoByTitle(videoTitle);
@@ -141,6 +156,8 @@ public class VideoController {
 
         }
     }
+
+
 
 
 }
