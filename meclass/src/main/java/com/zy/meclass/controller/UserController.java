@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
@@ -30,9 +31,9 @@ public class UserController {
 
         if(result > 0)
         {
-            return new CommonResult(1,"注册成功");
+            return new CommonResult(0,"注册成功");
         }else{
-            return new CommonResult(0,"注册失败");
+            return new CommonResult(1,"注册失败");
         }
 
     }
@@ -55,11 +56,11 @@ public class UserController {
                     Cookie tokenCookie = new Cookie("login_token_id", token);
                     response.addCookie(tokenCookie);
                     User userPwd = new User(u.getIduser(), u.getUname(), u.getFlag());
-                    return new CommonResult(1,"登陆成功 ",userPwd);
+                    return new CommonResult(0,"登陆成功 ",userPwd);
                 }
-                return new CommonResult(0,"认证失败");
+                return new CommonResult(1,"认证失败");
             }else{
-                return new CommonResult(0,"用户或密码错误");
+                return new CommonResult(1,"用户或密码错误");
             }
         }
 
@@ -73,17 +74,19 @@ public class UserController {
 
         if(user != null)
         {
-            return new CommonResult(1,"查询成功 ",user);
+            return new CommonResult(0,"查询成功 ",user);
         }else{
-            return new CommonResult(0,"查询失败 ");
+            return new CommonResult(1,"查询失败 ");
         }
     }
 
     //获取用户信息,需要Token验证的接口
     @PostMapping(value = "/user/get")
-    public String getPaymentById()
+    public String getPaymentById(HttpServletRequest request)
     {
-        return "info";
+        String token = request.getHeader("token");
+        String userNameByToken = JwtUtil.getUserNameByToken(request);
+        return userNameByToken;
     }
 
 }

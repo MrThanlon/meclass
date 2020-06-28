@@ -5,6 +5,7 @@ import com.zy.meclass.entity.Video;
 import com.zy.meclass.service.VideoService;
 import com.zy.meclass.util.NonStaticResourceHttpRequestHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,9 +21,8 @@ public class VideoController {
     @Resource
     private VideoService videoService;
 
-    @Resource
-    private NonStaticResourceHttpRequestHandler nonStaticResourceHttpRequestHandler;
-
+    @Value("${video.path}")
+    private String videoPath;
 
 
 
@@ -35,7 +35,7 @@ public class VideoController {
                     .toLowerCase();
             System.out.println(fileExt);
             //视频存放路径
-            String path = "/Users/zhangye/Documents/video";
+            String path = videoPath;
             //获取项目根路径并转到static/videos
             //String path = ClassUtils.getDefaultClassLoader().getResource("").getPath()+"static/videos/";
             //String path = " /Users/zhangye/IdeaProjects/meclass/src/main/resources/static/videos";
@@ -49,11 +49,11 @@ public class VideoController {
             //fileSave.renameTo(new File(videoTitle+".mp4"));//改名
             Video newVideo = new Video(videoTitle,path,0);
             videoService.addVideo(newVideo);
-            return new CommonResult(1,"上传视频成功 ");
+            return new CommonResult(0,"上传视频成功 ");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new CommonResult(0,"上传视频失败 ");
+        return new CommonResult(1,"上传视频失败 ");
     }
 
     //删除视频
