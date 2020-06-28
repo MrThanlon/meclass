@@ -8,3 +8,7 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.zy.meclass.entity
+
+#自定义配置-路径
+video:
+  path: /home/storage/video
