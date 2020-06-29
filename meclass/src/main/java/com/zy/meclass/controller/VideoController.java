@@ -6,6 +6,7 @@ import com.zy.meclass.service.VideoService;
 import com.zy.meclass.util.NonStaticResourceHttpRequestHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -58,11 +60,23 @@ public class VideoController {
 
     //删除视频
 
-
-    //查询所有视频
+    
+    //查询所有视频名称
+    @PostMapping("/video/findVideoAll")
+    public CommonResult findVideoAll(Model model){
+        List<Video> list = null;
+        try{
+            list = this.videoService.searchAllVideo();
+            model.addAttribute("list",list);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new CommonResult(1,"查询失败");
+        }
+        return new CommonResult(0,"查询成功",list);
+    }
 
     //根据视频标题查询视频
-    @PostMapping(value = "/video/get")
+    @RequestMapping(value = "/video/get",method = RequestMethod.GET)
     public byte[] getVideoByName(@RequestParam("videoTitle") String videoTitle)
     {
         Video video = videoService.getVideoByTitle(videoTitle);

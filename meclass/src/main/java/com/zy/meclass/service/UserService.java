@@ -4,11 +4,11 @@ import com.zy.meclass.entity.User;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserService {
-    int create(User user) ;
+    public int create(User user) ;
 
-    User getUserById(@Param("id") Integer id);
+    public User getUserById(@Param("id") Integer id);
 
-    User login(User user);
+    public User login(User user);
 
-    String getPassword(@Param("uname") String uname);
+    public String getPassword(@Param("uname") String uname);
 }

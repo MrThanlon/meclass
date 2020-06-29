@@ -32,16 +32,6 @@ CREATE TABLE `user` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `user`
---
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'teacher','teacher',1),(2,'123','123',1),(3,'coco','123',1),(5,'hello','5d41402abc4b2a76b9719d911017c592',1),(6,'zhangye','202cb962ac59075b964b07152d234b70',0);
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `video`
 --
 
@@ -54,18 +44,8 @@ CREATE TABLE `video` (
   `path` varchar(45) NOT NULL,
   `playCount` int DEFAULT NULL,
   PRIMARY KEY (`videoId`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `video`
---
-
-LOCK TABLES `video` WRITE;
-/*!40000 ALTER TABLE `video` DISABLE KEYS */;
-INSERT INTO `video` VALUES (1,'送饭','/Users/zhangye/Documents/video',0);
-/*!40000 ALTER TABLE `video` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -76,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-27 21:29:45
+-- Dump completed on 2020-06-30  0:30:33
