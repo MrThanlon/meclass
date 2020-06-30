@@ -16,8 +16,8 @@ public class UserServiceImpl implements UserService {
     public int create(User user){
         return userDao.create(user);
     }
-    public User getUserById(@Param("id") Integer id){
-        return userDao.getUserById(id);
+    public User getUserByName(@Param("uname") String username){
+        return userDao.getUserByName(username);
     }
 
     public User login(User user){

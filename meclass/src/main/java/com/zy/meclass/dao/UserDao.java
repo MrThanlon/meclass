@@ -15,7 +15,7 @@ public interface UserDao {
     public User login(User user);
 
     //查询用户
-    public User getUserById(@Param("id") Integer id);
+    public User getUserByName(@Param("uname") String username);
 
     //获取密码
 

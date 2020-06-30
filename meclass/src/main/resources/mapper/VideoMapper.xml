@@ -13,7 +13,7 @@
     </delete>
 
     <select id="searchAllVideo" resultType="com.zy.meclass.entity.Video">
-        select * from video;
+        select videoId,videoTitle,playCount from video;
     </select>
 
     <select id="getVideoByTitle" parameterType="string" resultType="com.zy.meclass.entity.Video">

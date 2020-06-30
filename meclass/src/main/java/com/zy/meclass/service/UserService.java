@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 public interface UserService {
     public int create(User user) ;
 
-    public User getUserById(@Param("id") Integer id);
+    public User getUserByName(@Param("uname") String username);
 
     public User login(User user);
 

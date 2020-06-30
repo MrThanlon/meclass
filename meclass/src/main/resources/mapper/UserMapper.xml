@@ -10,12 +10,12 @@
     <select id="login" parameterType="com.zy.meclass.entity.User" resultType="com.zy.meclass.entity.User">
         select * from user where uname = #{uname} and pwd = #{pwd};
     </select>
-    <select id="getUserById" parameterType="integer" resultType="com.zy.meclass.entity.User">
-        select * from user where iduser = #{iduser};
-    </select>
     <select id="getPassword" parameterType="string" resultType="java.lang.String">
         select pwd from user where uname = #{uname};
     </select>
+    <select id="getUserByName" parameterType="integer" resultType="com.zy.meclass.entity.User">
+        select * from user where uname = #{uname};
+     </select>
 
 
 </mapper>
