@@ -42,6 +42,9 @@ public class JwtUtil {
     //获得用户名
     public static String getUserNameByToken(HttpServletRequest request){
         String token = request.getHeader("token");
+        if (token == null){
+            return null;
+        }
         DecodedJWT jwt = JWT.decode(token);
         return jwt.getClaim("username").asString();
     }

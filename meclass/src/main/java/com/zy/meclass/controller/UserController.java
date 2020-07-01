@@ -91,10 +91,10 @@ public class UserController {
     {
         String token = request.getHeader("token");
         String userNameByToken = JwtUtil.getUserNameByToken(request);
-        if (userNameByToken != null){
-            return new CommonResult(0,"查询成功 ",userNameByToken);
-        }else{
+        if (userNameByToken == null){
             return new CommonResult(1,"查询失败 ");
+        }else{
+            return new CommonResult(0,"查询成功 ",userNameByToken);
         }
 
     }

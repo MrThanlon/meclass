@@ -80,11 +80,11 @@ public class VideoController {
 
     //根据视频标题查询视频
     @RequestMapping(value = "/video/get",method = RequestMethod.GET)
-    public CommonResult getVideoByName(@RequestParam("videoTitle") String videoTitle, HttpServletResponse response)
+    public byte[] getVideoByName(@RequestParam("videoTitle") String videoTitle, HttpServletResponse response)
     {
             Video video = videoService.getVideoByTitle(videoTitle);
             if (video == null){
-                return new CommonResult(1,"查询失败");
+                return null;
             }
             String filePath = video.getPath();
             String fileName = video.getVideoTitle();
@@ -108,7 +108,7 @@ public class VideoController {
                 e.printStackTrace();
             }
             response.setContentType("video/mp4");
-            return new CommonResult(0,"查询成功",buffer);
+            return buffer;
         }
 
     //未实现
