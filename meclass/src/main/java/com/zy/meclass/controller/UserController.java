@@ -25,15 +25,20 @@ public class UserController {
     public CommonResult create(@RequestBody User user){
         log.info("*****结果："+user);
         String pwd=	MD5Util.string2MD5(user.getPwd());
-        user.setPwd(pwd);
-        int result = userService.create(user);
-        log.info("*****插入结果："+result);
+        String username = user.getUname();
+        if ( userService.getUserByName(username) != null ){
+            return new CommonResult(1,"该用户名已注册，注册失败");
+        }else {
+            user.setPwd(pwd);
+            int result = userService.create(user);
+            log.info("*****插入结果："+result);
 
-        if(result > 0)
-        {
-            return new CommonResult(0,"注册成功");
-        }else{
-            return new CommonResult(1,"注册失败");
+            if(result > 0)
+            {
+                return new CommonResult(0,"注册成功");
+            }else{
+                return new CommonResult(1,"注册失败");
+            }
         }
 
     }
@@ -68,9 +73,9 @@ public class UserController {
 
     //查询用户信息(未实现)
     @PostMapping(value = "/user/search")
-    public CommonResult getPaymentById(@PathVariable("id") Integer id)
+    public CommonResult getPaymentById(@PathVariable("uname") String username)
     {
-        User user = userService.getUserById(id);
+        User user = userService.getUserByName(username);
 
         if(user != null)
         {
@@ -82,11 +87,16 @@ public class UserController {
 
     //获取用户信息,需要Token验证的接口
     @PostMapping(value = "/user/get")
-    public String getPaymentById(HttpServletRequest request)
+    public CommonResult getPaymentById(HttpServletRequest request)
     {
         String token = request.getHeader("token");
         String userNameByToken = JwtUtil.getUserNameByToken(request);
-        return userNameByToken;
+        if (userNameByToken != null){
+            return new CommonResult(0,"查询成功 ",userNameByToken);
+        }else{
+            return new CommonResult(1,"查询失败 ");
+        }
+
     }
 
 }

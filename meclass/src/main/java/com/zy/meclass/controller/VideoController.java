@@ -3,6 +3,7 @@ package com.zy.meclass.controller;
 import com.zy.meclass.entity.CommonResult;
 import com.zy.meclass.entity.Video;
 import com.zy.meclass.service.VideoService;
+import com.zy.meclass.util.JwtUtil;
 import com.zy.meclass.util.NonStaticResourceHttpRequestHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -72,37 +74,42 @@ public class VideoController {
             e.printStackTrace();
             return new CommonResult(1,"查询失败");
         }
+
         return new CommonResult(0,"查询成功",list);
     }
 
     //根据视频标题查询视频
     @RequestMapping(value = "/video/get",method = RequestMethod.GET)
-    public byte[] getVideoByName(@RequestParam("videoTitle") String videoTitle)
+    public CommonResult getVideoByName(@RequestParam("videoTitle") String videoTitle, HttpServletResponse response)
     {
-        Video video = videoService.getVideoByTitle(videoTitle);
-        String filePath = video.getPath();
-        String fileName = video.getVideoTitle();
-        byte[] buffer = null;
-        try {
-            File file = new File(filePath, fileName+".mp4");
-            FileInputStream fis = new FileInputStream(file);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] b = new byte[1024];
-            int n;
-            while ((n = fis.read(b)) != -1)
-            {
-                bos.write(b, 0, n);
+            Video video = videoService.getVideoByTitle(videoTitle);
+            if (video == null){
+                return new CommonResult(1,"查询失败");
             }
-            fis.close();
-            bos.close();
-            buffer = bos.toByteArray();
+            String filePath = video.getPath();
+            String fileName = video.getVideoTitle();
+            byte[] buffer = null;
+            try {
+                File file = new File(filePath, fileName+".mp4");
+                FileInputStream fis = new FileInputStream(file);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] b = new byte[1024];
+                int n;
+                while ((n = fis.read(b)) != -1)
+                {
+                    bos.write(b, 0, n);
+                }
+                fis.close();
+                bos.close();
+                buffer = bos.toByteArray();
             } catch (FileNotFoundException e) {
-            e.printStackTrace();
+                e.printStackTrace();
             } catch (IOException e) {
-            e.printStackTrace();
+                e.printStackTrace();
             }
-        return buffer;
-    }
+            response.setContentType("video/mp4");
+            return new CommonResult(0,"查询成功",buffer);
+        }
 
     //未实现
     @RequestMapping(value = "/getVideosss", method = RequestMethod.GET)
