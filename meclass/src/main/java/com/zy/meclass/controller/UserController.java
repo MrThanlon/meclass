@@ -89,12 +89,17 @@ public class UserController {
     @PostMapping(value = "/user/get")
     public CommonResult getPaymentById(HttpServletRequest request)
     {
-        String token = request.getHeader("token");
+        //String token = request.getHeader("token")
+        //cookies =  request.getCookies();
+        //System.out.println(cookies);
         String userNameByToken = JwtUtil.getUserNameByToken(request);
+
         if (userNameByToken == null){
             return new CommonResult(1,"查询失败 ");
         }else{
-            return new CommonResult(0,"查询成功 ",userNameByToken);
+            User userByName = userService.getUserByName(userNameByToken);
+            User userPwd = new User(userByName.getIduser(), userByName.getUname(), userByName.getFlag());
+            return new CommonResult(0,"查询成功 ",userPwd);
         }
 
     }

@@ -13,7 +13,7 @@
     <select id="getPassword" parameterType="string" resultType="java.lang.String">
         select pwd from user where uname = #{uname};
     </select>
-    <select id="getUserByName" parameterType="integer" resultType="com.zy.meclass.entity.User">
+    <select id="getUserByName" parameterType="string" resultType="com.zy.meclass.entity.User">
         select * from user where uname = #{uname};
      </select>
 
