@@ -8,7 +8,7 @@
         insert into user(uname,pwd,flag) values(#{uname},#{pwd},#{flag});
     </insert>
     <select id="login" parameterType="com.zy.meclass.entity.User" resultType="com.zy.meclass.entity.User">
-        select * from user where uname = #{uname} and pwd = #{pwd};
+        select * from user where uname = #{uname} and pwd = #{pwd} and flag = #{flag};
     </select>
     <select id="getPassword" parameterType="string" resultType="java.lang.String">
         select pwd from user where uname = #{uname};

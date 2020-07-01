@@ -51,9 +51,15 @@ public class VideoController {
             file.transferTo(fileSave);
 
             //fileSave.renameTo(new File(videoTitle+".mp4"));//改名
-            Video newVideo = new Video(videoTitle,path,0);
-            videoService.addVideo(newVideo);
-            return new CommonResult(0,"上传视频成功 ");
+            Video videoByTitle = videoService.getVideoByTitle(videoTitle);
+            if (videoByTitle == null){
+                Video newVideo = new Video(videoTitle,path,0);
+                videoService.addVideo(newVideo);
+                return new CommonResult(0,"上传视频成功 ");
+            }else {
+                return new CommonResult(1,"视频名称已存在，请重新命名 ");
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,6 +114,8 @@ public class VideoController {
                 e.printStackTrace();
             }
             response.setContentType("video/mp4");
+            int playCount = video.getPlayCount() + 1;
+            video.setPlayCount(playCount);
             return buffer;
         }
 
