@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
@@ -41,11 +42,12 @@ public class JwtUtil {
 
     //获得用户名
     public static String getUserNameByToken(HttpServletRequest request){
-        String token = request.getHeader("token");
-        if (token == null){
+        //String token = request.getHeader("token");
+        String cookie = request.getHeader("Cookie");
+        if (cookie == null){
             return null;
         }
-        DecodedJWT jwt = JWT.decode(token);
+        DecodedJWT jwt = JWT.decode(cookie);
         return jwt.getClaim("username").asString();
     }
 }
