@@ -51,4 +51,13 @@ public class JwtUtil {
         DecodedJWT jwt = JWT.decode(token);
         return jwt.getClaim("username").asString();
     }
+    //根据cookie获得用户名
+    public static String getUserNameByCookie(String cookievalue){
+        String token = cookievalue;
+        if (token == null){
+            return null;
+        }
+        DecodedJWT jwt = JWT.decode(token);
+        return jwt.getClaim("username").asString();
+    }
 }

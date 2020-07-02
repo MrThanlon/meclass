@@ -87,13 +87,13 @@ public class UserController {
 
     //获取用户信息,需要Token验证的接口
     @PostMapping(value = "/user/get")
-    public CommonResult getPaymentById(HttpServletRequest request)
+    public CommonResult getUserById(@CookieValue("login_token_id") String cookievalue)
     {
         //String token = request.getHeader("token")
         //cookies =  request.getCookies();
         //System.out.println(cookies);
-        String userNameByToken = JwtUtil.getUserNameByToken(request);
-
+        //String userNameByToken = JwtUtil.getUserNameByToken(request);
+        String userNameByToken = JwtUtil.getUserNameByCookie(cookievalue);
         if (userNameByToken == null){
             return new CommonResult(1,"查询失败 ");
         }else{
