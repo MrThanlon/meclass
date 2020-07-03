@@ -19,5 +19,8 @@
     <select id="getVideoByTitle" parameterType="string" resultType="com.zy.meclass.entity.Video">
         select * from video where videoTitle = #{videoTitle};
     </select>
+    <select id="getVideoById" parameterType="integer" resultType="com.zy.meclass.entity.Video">
+        select * from video where videoId = #{videoId};
+    </select>
 
 </mapper>

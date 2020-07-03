@@ -86,9 +86,9 @@ public class VideoController {
 
     //根据视频标题查询视频
     @RequestMapping(value = "/video/get",method = RequestMethod.GET)
-    public byte[] getVideoByName(@RequestParam("videoTitle") String videoTitle, HttpServletResponse response)
+    public byte[] getVideoByName(@RequestParam("videoId") Integer videoId, HttpServletResponse response)
     {
-            Video video = videoService.getVideoByTitle(videoTitle);
+            Video video = videoService.getVideoById(videoId);
             if (video == null){
                 return null;
             }
