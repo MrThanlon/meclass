@@ -27,9 +27,12 @@ public class VideoServiceImpl implements VideoService {
     public List<Video> searchAllVideo(){
         return videoDao.searchAllVideo();
     }
-    //根据id查询视频
+    //根据名字查询视频
     public   Video getVideoByTitle(@Param("videoTitle") String videoTitle){
         return videoDao.getVideoByTitle(videoTitle);
     }
-
+    //根据id查询视频
+    public Video getVideoById(@Param("videoId") Integer videoId){
+        return videoDao.getVideoById(videoId);
+    }
 }
