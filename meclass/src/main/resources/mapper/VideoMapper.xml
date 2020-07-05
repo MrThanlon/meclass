@@ -7,9 +7,12 @@
     <insert id="addVideo" parameterType="com.zy.meclass.entity.Video" useGeneratedKeys="true" keyProperty="videoId">
         insert into video(videoTitle,path,playCount) values(#{videoTitle},#{path},#{playCount});
     </insert>
+    <update id="updateVideo" parameterType="com.zy.meclass.entity.Video">
+        update video set playCount=#{playCount} WHERE videoId = #{videoId};
+    </update>
 
-    <delete id="deleteVideo">
-        DELETE FROM video WHERE videoTitle = #{videoTitle};
+    <delete id="deleteVideo" parameterType="integer">
+        DELETE FROM video WHERE videoId = #{videoId};
     </delete>
 
     <select id="searchAllVideo" resultType="com.zy.meclass.entity.Video">
