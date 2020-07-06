@@ -1,8 +1,12 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
   datasource:
     url: jdbc:mysql://localhost:3306/meclass?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
-    username: root
-    password: ZYsky131499
+    username: hzy
+    password: huangziyi.1970
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis:
@@ -11,7 +15,7 @@ mybatis:
 
 #自定义配置-路径
 video:
-  path: /Users/zhangye/Documents/video
+  path: /Users/ziyihuang/Movies
 
 server:
   port: 8080
