@@ -20,8 +20,8 @@ public class VideoServiceImpl implements VideoService {
         return videoDao.addVideo(video);
     }
     //删除视频
-    public int deleteVideo(@Param("videoTitle") String videoTitle){
-        return videoDao.deleteVideo(videoTitle);
+    public int deleteVideo(@Param("videoId") Integer videoId){
+        return videoDao.deleteVideo(videoId);
     }
     //查询所有视频
     public List<Video> searchAllVideo(){
@@ -34,5 +34,9 @@ public class VideoServiceImpl implements VideoService {
     //根据id查询视频
     public Video getVideoById(@Param("videoId") Integer videoId){
         return videoDao.getVideoById(videoId);
+    }
+
+    //修改playCount
+    public  int updateVideo(Video video){ return videoDao.updateVideo(video);
     }
 }

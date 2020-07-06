@@ -10,15 +10,16 @@ import java.util.List;
 
 public interface VideoService {
     //添加视频
-    public int addVideo(Video video);
+    int addVideo(Video video);
     //删除视频
-    public int deleteVideo(@Param("videoTitle") String videoTitle);
+    int deleteVideo(@Param("videoId") Integer videoId);
     //查询所有视频
-    public List<Video> searchAllVideo();
+    List<Video> searchAllVideo();
     //根据名字查询视频
-    public Video getVideoByTitle(@Param("videoTitle") String videoTitle);
+    Video getVideoByTitle(@Param("videoTitle") String videoTitle);
     //根据id查询视频
-    public Video getVideoById(@Param("videoId") Integer videoId);
+    Video getVideoById(@Param("videoId") Integer videoId);
 
-
+    //修改playCount
+    int updateVideo(Video video);
 }

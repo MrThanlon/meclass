@@ -59,6 +59,7 @@ public class UserController {
                 if(token != null){
                     //Cookie cookie = new Cookie(u.getUname(),u.getPwd());
                     Cookie tokenCookie = new Cookie("login_token_id", token);
+                    tokenCookie.setPath("/");
                     response.addCookie(tokenCookie);
                     User userPwd = new User(u.getIduser(), u.getUname(), u.getFlag());
                     return new CommonResult(0,"登陆成功 ",userPwd);
