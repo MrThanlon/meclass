@@ -5,8 +5,8 @@ spring:
       max-request-size: 100MB
   datasource:
     url: jdbc:mysql://localhost:3306/meclass?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
-    username: hzy
-    password: huangziyi.1970
+    username: root
+    password: ZYsky131499
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis:

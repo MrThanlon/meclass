@@ -54,7 +54,8 @@ public class CommentController {
 
     //查询所有评论
     @PostMapping("/comment/get")
-    public CommonResult findCommentAll(Model model,@RequestParam("videoId") Integer videoId) {
+    public CommonResult findCommentAll(Model model,@RequestBody Video video) {
+        Integer videoId = video.getVideoId();
         List<Comment> list = null;
         try {
             list = this.commentService.searchAllComment(videoId);
