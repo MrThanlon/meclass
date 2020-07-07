@@ -58,18 +58,33 @@ public class VideoController {
                     //获取项目根路径并转到static/videos
                     //String path = ClassUtils.getDefaultClassLoader().getResource("").getPath()+"static/videos/";
                     //保存视频
-                    File fileSave = new File(path,videoTitle+".mp4");
-                    //下载到本地
-                    file.transferTo(fileSave);
-                    Video videoByTitle = videoService.getVideoByTitle(videoTitle);
-                    if (videoByTitle == null){
-                        Video newVideo = new Video(videoTitle,path,0);
-                        videoService.addVideo(newVideo);
-                        return new CommonResult(0,"上传视频成功 ");
-                    }else {
-                        return new CommonResult(1,"视频名称已存在，请重新命名 ");
+                    if (fileExt.equals("mp4")){
+                        System.out.println("视频是mp4");
+                        File fileSave = new File(path,videoTitle+".mp4");
+                        //下载到本地
+                        file.transferTo(fileSave);
+                        Video videoByTitle = videoService.getVideoByTitle(videoTitle);
+                        if (videoByTitle == null){
+                            Video newVideo = new Video(videoTitle,path,0,1);
+                            videoService.addVideo(newVideo);
+                            return new CommonResult(0,"上传视频成功 ");
+                        }else {
+                            return new CommonResult(1,"视频名称已存在，请重新命名 ");
+                        }
                     }
-
+                    if (fileExt.equals("swf")){
+                        File fileSave = new File(path,videoTitle+".swf");
+                        //下载到本地
+                        file.transferTo(fileSave);
+                        Video videoByTitle = videoService.getVideoByTitle(videoTitle);
+                        if (videoByTitle == null){
+                            Video newVideo = new Video(videoTitle,path,0,0);
+                            videoService.addVideo(newVideo);
+                            return new CommonResult(0,"上传视频成功 ");
+                        }else {
+                            return new CommonResult(1,"视频名称已存在，请重新命名 ");
+                        }
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -86,22 +101,30 @@ public class VideoController {
         Video videoById = videoService.getVideoById(videoId);
         if (videoById == null){
             return new CommonResult(1,"未找到要删除的视频");
-        }else{
+        }else {
             String videoTitle = videoById.getVideoTitle();
             //保存视频
-            File file = new File(path,videoTitle+".mp4");
+            File file = new File(path, videoTitle + ".mp4");
             if (file.exists()) {//文件是否存在
                 if (file.delete()) {//存在就删了，返回1
                     videoService.deleteVideo(videoId);
-                    return new CommonResult(0,"删除成功");
+                    return new CommonResult(0, "删除成功");
                 } else {
-                    return new CommonResult(1,"删除失败");
+                    return new CommonResult(1, "删除失败");
                 }
             } else {
-                return new CommonResult(1,"文件不存在");
+                File fileSwf = new File(path, videoTitle + ".swf");
+                if (fileSwf.exists()) {//文件是否存在
+                    if (fileSwf.delete()) {//存在就删了，返回1
+                        videoService.deleteVideo(videoId);
+                        return new CommonResult(0, "删除成功");
+                    } else {
+                        return new CommonResult(1, "删除失败");
+                    }
+                }
             }
         }
-
+        return new CommonResult(1, "文件不存在");
     }
     
     //查询所有视频名称
@@ -130,8 +153,19 @@ public class VideoController {
             String filePath = video.getPath();
             String fileName = video.getVideoTitle();
             byte[] buffer = null;
+            File file = null;
             try {
-                File file = new File(filePath, fileName+".mp4");
+                Integer isFlash = video.getIsFlash();
+                System.out.println(isFlash);
+                if (isFlash.equals(1)){
+                    file = new File(filePath, fileName+".mp4");
+                    System.out.println(file);
+                    //response.setHeader("Content-Type","video/mp4");
+                }else {
+                    file = new File(filePath, fileName+".swf");
+                    System.out.println(file);
+                    //response.setHeader("Content-Type","application/octet-stream");
+                }
                 FileInputStream fis = new FileInputStream(file);
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 byte[] b = new byte[1024];
@@ -148,7 +182,8 @@ public class VideoController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            response.setContentType("video/mp4");
+            //response.setContentType("video/mp4");(有返回值的情况下，会被消息转换器覆盖掉)
+            //请求头添加produces = "video/mp4"
             int playCount = video.getPlayCount() + 1;
             video.setPlayCount(playCount);
             videoService.updateVideo(video);

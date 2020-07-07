@@ -54,6 +54,7 @@ public class UserController {
             System.out.println(pwd);
             user.setPwd(pwd);
             User u = userService.login(user);
+            System.out.println(u);
             if(u != null){
                 String token = JwtUtil.sign(u.getUname(),u.getPwd());
                 if(token != null){

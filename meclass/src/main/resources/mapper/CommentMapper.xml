@@ -3,7 +3,7 @@
 
 <mapper namespace="com.zy.meclass.dao.CommentDao">
     <insert id="addComment" parameterType="com.zy.meclass.entity.Comment" useGeneratedKeys="true" keyProperty="commentId">
-        insert into comment(username,videoId,replyId,pId,commentMsg,createTime) values(#{username},#{videoId},#{replyId},#{pId},#{commentMsg},#{createTime});
+        insert into comment(username,videoId,replyId,commentMsg,createTime) values(#{username},#{videoId},#{replyId},#{commentMsg},#{createTime});
     </insert>
 
     <update id="updateComment" parameterType="integer">
@@ -11,7 +11,7 @@
     </update>
 
     <select id="searchAllComment" parameterType="integer" resultType="com.zy.meclass.entity.Comment">
-        select commentId,username,videoId,replyId,pId,commentMsg,createTime from comment WHERE videoId=#{videoId};
+        select commentId,username,videoId,replyId,commentMsg,createTime from comment WHERE videoId=#{videoId};
     </select>
 
 

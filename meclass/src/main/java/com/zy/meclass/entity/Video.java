@@ -12,11 +12,13 @@ public class Video {
     private String videoTitle;
     private String path;
     private Integer playCount;
+    private Integer isFlash;
 
-    public Video(String videoTitle, String path, int playCount) {
+    public Video(String videoTitle, String path, int playCount, int isFlash) {
         this.videoTitle = videoTitle;
         this.path = path;
         this.playCount = playCount;
+        this.isFlash = isFlash;
     }
 
 

@@ -14,7 +14,6 @@ public class Comment {
     private String username;
     private Integer videoId;
     private Integer replyId;
-    private Integer pId;
     private String commentMsg;
     private String createTime;
 }

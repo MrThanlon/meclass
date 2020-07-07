@@ -32,8 +32,10 @@ public class CommentController {
     public CommonResult create(@RequestParam("videoId") Integer videoId,
                                @RequestParam("commentMsg") String commentMsg,
                                @RequestParam("replyId") Integer replyId,
-                               @RequestParam("pId") Integer pId,
                                @CookieValue("login_token_id") String cookievalue) {
+        if(cookievalue == null){
+            System.out.println("hahha ");
+        }
         String userNameByToken = JwtUtil.getUserNameByCookie(cookievalue);
         if (userNameByToken == null) {
             return new CommonResult(1, "请登陆");
@@ -43,7 +45,6 @@ public class CommentController {
             newcomment.setCommentMsg(commentMsg);
             newcomment.setVideoId(videoId);
             newcomment.setCreateTime(createTime);
-            newcomment.setPId(pId);
             newcomment.setReplyId(replyId);
             newcomment.setUsername(userNameByToken);
             commentService.addComment(newcomment);
@@ -52,8 +53,7 @@ public class CommentController {
     }
 
     //查询所有评论
-    //查询所有视频名称
-    @PostMapping("/video/findCommentAll")
+    @PostMapping("/comment/get")
     public CommonResult findCommentAll(Model model,@RequestParam("videoId") Integer videoId) {
         List<Comment> list = null;
         try {

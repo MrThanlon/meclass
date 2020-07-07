@@ -5,7 +5,7 @@
 
 
     <insert id="addVideo" parameterType="com.zy.meclass.entity.Video" useGeneratedKeys="true" keyProperty="videoId">
-        insert into video(videoTitle,path,playCount) values(#{videoTitle},#{path},#{playCount});
+        insert into video(videoTitle,path,playCount,isFlash) values(#{videoTitle},#{path},#{playCount},#{isFlash});
     </insert>
     <update id="updateVideo" parameterType="com.zy.meclass.entity.Video">
         update video set playCount=#{playCount} WHERE videoId = #{videoId};
@@ -16,7 +16,7 @@
     </delete>
 
     <select id="searchAllVideo" resultType="com.zy.meclass.entity.Video">
-        select videoId,videoTitle,playCount from video;
+        select videoId,videoTitle,playCount,isFlash from video;
     </select>
 
     <select id="getVideoByTitle" parameterType="string" resultType="com.zy.meclass.entity.Video">

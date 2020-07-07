@@ -26,12 +26,15 @@ CREATE TABLE `comment` (
   `commentId` int NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
   `replyId` int DEFAULT NULL,
-  `pId` int DEFAULT NULL,
   `commentMsg` varchar(200) NOT NULL,
   `createTime` varchar(200) NOT NULL,
   `videoId` int NOT NULL,
   PRIMARY KEY (`commentId`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> update document,database,video and comment
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +50,11 @@ CREATE TABLE `user` (
   `pwd` varchar(45) NOT NULL,
   `flag` int NOT NULL,
   PRIMARY KEY (`iduser`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> update document,database,video and comment
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,9 +68,14 @@ CREATE TABLE `video` (
   `videoId` int NOT NULL AUTO_INCREMENT,
   `videoTitle` varchar(45) NOT NULL,
   `path` varchar(45) NOT NULL,
-  `playCount` int DEFAULT NULL,
+  `playCount` int NOT NULL,
+  `isFlash` int NOT NULL,
   PRIMARY KEY (`videoId`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> update document,database,video and comment
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -75,4 +87,4 @@ CREATE TABLE `video` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-05 23:32:42
+-- Dump completed on 2020-07-07 11:13:55
