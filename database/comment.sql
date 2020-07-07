@@ -30,11 +30,7 @@ CREATE TABLE `comment` (
   `createTime` varchar(200) NOT NULL,
   `videoId` int NOT NULL,
   PRIMARY KEY (`commentId`)
-<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-=======
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
->>>>>>> update document,database,video and comment
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,11 +46,7 @@ CREATE TABLE `user` (
   `pwd` varchar(45) NOT NULL,
   `flag` int NOT NULL,
   PRIMARY KEY (`iduser`)
-<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-=======
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
->>>>>>> update document,database,video and comment
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,11 +63,7 @@ CREATE TABLE `video` (
   `playCount` int NOT NULL,
   `isFlash` int NOT NULL,
   PRIMARY KEY (`videoId`)
-<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-=======
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
->>>>>>> update document,database,video and comment
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
