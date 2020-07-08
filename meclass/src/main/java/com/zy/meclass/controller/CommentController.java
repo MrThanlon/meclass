@@ -29,17 +29,15 @@ public class CommentController {
 
     //添加评论
     @PostMapping(value = "/comment/add")
-    public CommonResult create(@RequestParam("videoId") Integer videoId,
-                               @RequestParam("commentMsg") String commentMsg,
-                               @RequestParam("replyId") Integer replyId,
+    public CommonResult create(@RequestBody Comment comment,
                                @CookieValue("login_token_id") String cookievalue) {
-        if(cookievalue == null){
-            System.out.println("hahha ");
-        }
         String userNameByToken = JwtUtil.getUserNameByCookie(cookievalue);
         if (userNameByToken == null) {
             return new CommonResult(1, "请登陆");
         } else {
+            String commentMsg = comment.getCommentMsg();
+            Integer replyId = comment.getReplyId();
+            Integer videoId = comment.getVideoId();
             Comment newcomment = new Comment();
             String createTime = timeService.getTime();
             newcomment.setCommentMsg(commentMsg);
