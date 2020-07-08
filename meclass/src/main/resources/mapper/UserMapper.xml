@@ -16,6 +16,9 @@
     <select id="getUserByName" parameterType="string" resultType="com.zy.meclass.entity.User">
         select * from user where uname = #{uname};
      </select>
+    <select id="getUserById" parameterType="integer" resultType="com.zy.meclass.entity.User">
+        select * from user where iduser = #{iduser};
+    </select>
 
 
 </mapper>

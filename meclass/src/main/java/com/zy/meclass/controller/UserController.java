@@ -73,15 +73,28 @@ public class UserController {
 
     }
 
-    //查询用户信息(未实现)
-    @PostMapping(value = "/user/search")
-    public CommonResult getPaymentById(@PathVariable("uname") String username)
+    //根据id查询用户信息
+    @PostMapping(value = "/user/getUserById/{iduser}")
+    public CommonResult getUserById(@PathVariable("iduser") Integer iduser)
     {
-        User user = userService.getUserByName(username);
-
+        User user = userService.getUserById(iduser);
         if(user != null)
         {
-            return new CommonResult(0,"查询成功 ",user);
+            User userPwd = new User(user.getIduser(), user.getUname(), user.getFlag());
+            return new CommonResult(0,"查询成功 ",userPwd);
+        }else{
+            return new CommonResult(1,"查询失败 ");
+        }
+    }
+    //根据id查询用户信息
+    @PostMapping(value = "/user/getUserByName/{uname}")
+    public CommonResult getUserByName(@PathVariable("uname") String uname)
+    {
+        User user = userService.getUserByName(uname);
+        if(user != null)
+        {
+            User userPwd = new User(user.getIduser(), user.getUname(), user.getFlag());
+            return new CommonResult(0,"查询成功 ",userPwd);
         }else{
             return new CommonResult(1,"查询失败 ");
         }
@@ -89,7 +102,7 @@ public class UserController {
 
     //获取用户信息,需要Token验证的接口
     @PostMapping(value = "/user/get")
-    public CommonResult getUserById(@CookieValue("login_token_id") String cookievalue)
+    public CommonResult getUser(@CookieValue("login_token_id") String cookievalue)
     {
         //String token = request.getHeader("token")
         //cookies =  request.getCookies();

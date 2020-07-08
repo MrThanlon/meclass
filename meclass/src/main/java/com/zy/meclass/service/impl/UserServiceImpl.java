@@ -28,6 +28,10 @@ public class UserServiceImpl implements UserService {
         return userDao.getPassword(uname);
     }
 
+    public User getUserById(@Param("iduser") Integer iduser){
+        return userDao.getUserById(iduser);
+    }
+
 
 
 }

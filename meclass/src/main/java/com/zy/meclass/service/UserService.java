@@ -11,4 +11,6 @@ public interface UserService {
     public User login(User user);
 
     public String getPassword(@Param("uname") String uname);
+
+    public User getUserById(@Param("iduser") Integer iduser);
 }
